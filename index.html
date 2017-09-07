@@ -1,0 +1,1316 @@
+<!DOCTYPE html>
+<html class=" js no-mobile desktop no-ie ff ff55 c:-section users-section arama-section dropbox-section 170908%20aes%20barcelona-section machine%20learning-section presentacion-section w-1368 gt-240 gt-320 gt-480 gt-640 gt-768 gt-800 gt-1024 gt-1280 lt-1440 lt-1680 lt-1920 no-portrait landscape gradient rgba opacity textshadow multiplebgs boxshadow borderimage borderradius no-cssreflections csstransforms csstransitions no-touch retina fontface domloaded" id="170907_presentacion_barcelona_aesv2-page"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="Miguel Ángel Negrín, Jaime Pinilla, Christian González, Francisco J. Vázquez">
+  <title>Comparativa de modelos de clasificación no paramétricos frente modelos de elección discreta convencionales</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="index_files/reveal.css">
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; background-color: #f8f8f8; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+pre, code { background-color: #f8f8f8; }
+code > span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code > span.dt { color: #204a87; } /* DataType */
+code > span.dv { color: #0000cf; } /* DecVal */
+code > span.bn { color: #0000cf; } /* BaseN */
+code > span.fl { color: #0000cf; } /* Float */
+code > span.ch { color: #4e9a06; } /* Char */
+code > span.st { color: #4e9a06; } /* String */
+code > span.co { color: #8f5902; font-style: italic; } /* Comment */
+code > span.ot { color: #8f5902; } /* Other */
+code > span.al { color: #ef2929; } /* Alert */
+code > span.fu { color: #000000; } /* Function */
+code > span.er { color: #a40000; font-weight: bold; } /* Error */
+code > span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #000000; } /* Constant */
+code > span.sc { color: #000000; } /* SpecialChar */
+code > span.vs { color: #4e9a06; } /* VerbatimString */
+code > span.ss { color: #4e9a06; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #000000; } /* Variable */
+code > span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code > span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code > span.ex { } /* Extension */
+code > span.at { color: #c4a000; } /* Attribute */
+code > span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code > span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="index_files/simple.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="index_files/custom.css">
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script><style type="text/css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</style>
+
+<script type="text/javascript" src="index_files/MathJax.js"></script><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1px; bottom: 2px; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body><div id="MathJax_Message" style="display: none;"></div>
+  <div class="reveal none center" role="application" data-transition-speed="default" data-background-transition="none">
+    <div class="slides" style="width: 960px; height: 700px; left: 50%; top: 50%; bottom: auto; right: auto; transform: translate(-50%, -50%) scale(1.00157);">
+
+<section style="top: 3.5px; display: block;" class="present">
+<div id="head_imag" class="clear">
+	<div class="content_t">
+		<img id="img_title" src="index_files/head_imag.png" alt="XXXVII Jornadas de Economía de la Salud">
+	<div id="head_hash">
+		<a class="link03" href="https://twitter.com/search?f=realtime&amp;q=%23JornadasAES&amp;src=typd" target="_blank">#JornadasAES</a>
+	</div>
+	<div class="clear"></div>
+	</div>
+</div>
+<div id="marco_title">
+    <h1 class="title">Comparativa de modelos de clasificación no paramétricos frente modelos de elección discreta convencionales</h1>
+  <h1 class="subtitle">Una aplicación con datos de percepción de factores de riesgo oncológicos</h1>
+</div>
+    <h2 class="author">Miguel Ángel Negrín, Jaime Pinilla, Christian González, Francisco J. Vázquez</h2>
+    <h3 class="affiliation">Departamento de Métodos Cuantitativos en Economía y Gestión. Universidad de Las Palmas de Gran Canaria</h3>
+    <h3 class="date">Barcelona, 7 septiembre 2017</h3>
+</section>
+
+<section id="indice-de-contenidos" class="slide level2 future" style="top: 174.5px; display: block;" aria-hidden="true" hidden="">
+<h1>Índice de contenidos</h1>
+<ul>
+<li>Aprendizaje automático</li>
+<li>Datos</li>
+<li>Análisis descriptivo</li>
+<li>Resultados</li>
+<li>Conclusiones</li>
+</ul>
+</section>
+<section id="aprendizaje-automatico" class="slide level2 white has-dark-background future" data-background="#005193" style="top: 277px; display: block;" aria-hidden="true" hidden="">
+<h1>Aprendizaje automático</h1>
+</section>
+<section id="aprendizaje-automatico-1" class="slide level2 future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Aprendizaje automático</h1>
+<ul>
+<li>Ventajas aprendizaje automático
+<ul>
+<li>Algoritmos computacionales que se mejoran automáticamente a través de la experiencia.</li>
+<li>Modelos no paramétricos.</li>
+<li>Pueden detectar relaciones no lineales entre las variables</li>
+<li>Tienen la habilidad de detectar todas la posibles relaciones entre las variables predictivas</li>
+</ul></li>
+<li>Limitaciones de los modelos Logit
+<ul>
+<li><p>Se asume que los individuos tienen la misma respuesta ante una variación de las explicativas</p></li>
+<li>El cociente de las probabilidades de elección de dos alternativas no depende de las restantes alternativas</li>
+<li><p>No se admiten correlación entre las observaciones.</p></li>
+</ul></li>
+</ul>
+</section>
+<section id="redes-neuronales" class="slide level2 future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Redes neuronales</h1>
+<ul>
+<li>Sistema no paramétrico que simula una red neuronal biológica.</li>
+<li>Es una función matemática que obtiene una salida en función de unas 
+entradas. Esta función se puede descomponer en diferentes funciones que 
+representarían cada una de las capas de la red.</li>
+<li>Aunque hay diferentes tipos de RNA, se trabajó con una red 
+feedfoward donde los parámetros se ajustaron mediante aprendizaje 
+supervisado</li>
+<li>Ventajas:
+<ul>
+<li>Habilidad de aprender mediante la etapa de aprendizaje</li>
+<li>Crea su propia representación de la información.</li>
+</ul></li>
+<li>Desventajas
+<ul>
+<li>La interpretación de los parámetros no es inmediata.</li>
+</ul></li>
+</ul>
+</section>
+<section class="slide level2 future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+
+<p><img src="index_files/redes.png" alt="Red neuronal"></p>
+</section>
+<section id="k-nearest-neighbour" class="slide level2 future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>k-Nearest Neighbour</h1>
+<p><img src="index_files/unnamed-chunk-2-1.png" width="768"></p>
+</section>
+<section id="naive-bayes" class="slide level2 future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Naive Bayes</h1>
+<p><img src="index_files/unnamed-chunk-3-1.png" width="768"></p>
+</section>
+<section id="arbol-de-decision" class="slide level2 future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Árbol de decisión</h1>
+<p><img src="index_files/unnamed-chunk-4-1.png" width="768"></p>
+</section>
+<section class="slide level2 future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+
+<p><img src="index_files/unnamed-chunk-5-1.png" width="768"></p>
+</section>
+<section id="random-forest" class="slide level2 future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Random Forest</h1>
+<p><img src="index_files/bagging.jpg" alt="Random Forest"></p>
+</section>
+<section id="xgboost" class="slide level2 future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Xgboost</h1>
+<p><img src="index_files/bigd.png" alt="Random Forest"></p>
+</section>
+<section id="resultados-2" class="slide level2 reduccion future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Resultados (2)</h1>
+<p><img src="index_files/knnROC.png" alt="Optimización ROC"></p>
+</section>
+<section id="datos" class="slide level2 white has-dark-background future" data-background="#005193" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Datos</h1>
+</section>
+<section id="datos-1" class="slide level2 future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Datos</h1>
+<blockquote>
+<p>Sanz-Barbero, B., Prieto-Flores, M. E., Otero-García, L., Abt-Sacks, 
+A., Bernal, M., &amp; Cambas, N. (2014). Perception of risk factors for 
+cancer in the Spanish population. Gaceta sanitaria, 28(2), 137-145.</p>
+</blockquote>
+<blockquote>
+<p>Analizar la percepción de la población española sobre la importancia de los factores de riesgo de cáncer.</p>
+</blockquote>
+</section>
+<section id="datos2" class="slide level2 future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Datos(2)</h1>
+<ul>
+<li><p>OncoBarómetro: Base de datos poblacional representativa de la 
+población española mayor de 18 años, no institucionalizada, que recoge 
+información sobre los conocimientos, las actitudes y las percepciones en
+ torno al cáncer.</p></li>
+<li><p>Diseño del cuestionario: Observatorio del Cáncer de la Asociación
+ Española Contra el Cáncer y el Centro de Investigaciones Sociológicas 
+(CIS).</p></li>
+<li><p>Trabajo de campo: noviembre y diciembre de 2010</p></li>
+</ul>
+</section>
+<section id="datos-3" class="slide level2 future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Datos (3)</h1>
+<p><img src="index_files/P10.png" alt="ENS"></p>
+</section>
+<section id="analisis-descriptivo" class="slide level2 white has-dark-background future" data-background="#005193" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Análisis descriptivo</h1>
+</section>
+<section id="analisis-descriptivo-1" class="slide level2 reduccion future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Análisis descriptivo</h1>
+<table style="width:100%;">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>
+Variables exógenas
+</th>
+<th>
+Atributos
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>
+Sexo
+</td>
+<td>
+Mujer, Hombre
+</td>
+</tr>
+<tr class="even">
+<td>
+Edad
+</td>
+<td>
+[18,35), [35,55), [55,75), [75,93]
+</td>
+</tr>
+<tr class="odd">
+<td>
+País
+</td>
+<td>
+Otro país, España
+</td>
+</tr>
+<tr class="even">
+<td>
+Estudios
+</td>
+<td>
+Sin estudios/&lt;5 años escoralizado, Primaria, Secundaria/formación profesional, Superior
+</td>
+</tr>
+<tr class="odd">
+<td>
+Salud percibida
+</td>
+<td>
+Muy mala/mala/regular, Muy buena/buena
+</td>
+</tr>
+<tr class="even">
+<td>
+Estilo de vida
+</td>
+<td>
+Poco saludable/nada saludable, Muy saludable/bastante saludable
+</td>
+</tr>
+<tr class="odd">
+<td>
+Enfermedades cancerosas
+</td>
+<td>
+No, Sí
+</td>
+</tr>
+<tr class="even">
+<td>
+Persona cercana con cancer
+</td>
+<td>
+No, Sí
+</td>
+</tr>
+<tr class="odd">
+<td>
+Recepción información
+</td>
+<td>
+No, Sí
+</td>
+</tr>
+<tr class="even">
+<td>
+Recomendación
+</td>
+<td>
+No, Sí
+</td>
+</tr>
+<tr class="odd">
+<td>
+Síntomas
+</td>
+<td>
+No, Sí
+</td>
+</tr>
+<tr class="even">
+<td>
+Temor
+</td>
+<td>
+No, Sí
+</td>
+</tr>
+<tr class="odd">
+<td>
+Riesgo
+</td>
+<td>
+Bajo/muy bajo, Muy alto/alto, NS/NC
+</td>
+</tr>
+<tr class="even">
+<td>
+Cancer problema
+</td>
+<td>
+Poco grave, Grave/muy grave
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="analisis-descriptivo-2" class="slide level2 future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Análisis descriptivo (2)</h1>
+<ul>
+<li>Variables exógenas: Percibe […] como factor de riesgo de padecer cancer
+<ul>
+<li>Tabaco, alcohol, exposición al sol</li>
+<li>Dieta, peso, ETS, historial de cáncer</li>
+<li>Radiaciones, contacto con sustancias nocivas, contaminación</li>
+</ul></li>
+</ul>
+<div style="margin:100px 0 0 0" ;="">
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tabaco ~<span class="st"> </span>sexo +<span class="st"> </span>edad +<span class="st"> </span>pais +<span class="st"> </span>estudios +<span class="st"> </span>saludpercibida +<span class="st"> </span>estilovida +<span class="st"> </span>enfcancerosas +<span class="st"> </span>cercanacancer +<span class="st"> </span>recepcion +<span class="st"> </span>recomendacion +<span class="st"> </span>sintomas +<span class="st"> </span>temor +<span class="st"> </span>riesgo +<span class="st"> </span>cancerproblema</code></pre></div>
+</div>
+</section>
+<section id="tabaco-como-factor-de-riesgo-de-cancer" class="slide level2 h1reduccion future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Tabaco como factor de riesgo de cáncer</h1>
+<p><img src="index_files/unnamed-chunk-8-1.png" width="768"></p>
+</section>
+<section class="slide level2 future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+
+<p><img src="index_files/unnamed-chunk-9-1.png" width="768"></p>
+</section>
+<section id="resultados" class="slide level2 white has-dark-background future" data-background="#005193" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Resultados</h1>
+</section>
+<section id="resultados-1" class="slide level2 future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Resultados</h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Algoritmo</th>
+<th style="text-align: right;">Precisión</th>
+<th style="text-align: right;">Sensibilidad</th>
+<th style="text-align: right;">Especificidad</th>
+<th style="text-align: right;">AUC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Logística</td>
+<td style="text-align: right;">0.5684</td>
+<td style="text-align: right;">0.5763</td>
+<td style="text-align: right;">0.5265</td>
+<td style="text-align: right;">0.5314</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ANN</td>
+<td style="text-align: right;">0.6424</td>
+<td style="text-align: right;">0.6940</td>
+<td style="text-align: right;">0.3710</td>
+<td style="text-align: right;">0.5414</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">KNN</td>
+<td style="text-align: right;">0.6164</td>
+<td style="text-align: right;">0.6516</td>
+<td style="text-align: right;">0.4311</td>
+<td style="text-align: right;">0.5325</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Naive Bayes</td>
+<td style="text-align: right;">0.5966</td>
+<td style="text-align: right;">0.6241</td>
+<td style="text-align: right;">0.4523</td>
+<td style="text-align: right;">0.5382</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Random Forest</td>
+<td style="text-align: right;">0.6328</td>
+<td style="text-align: right;">0.6846</td>
+<td style="text-align: right;">0.3604</td>
+<td style="text-align: right;">0.5225</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">XGBoost</td>
+<td style="text-align: right;">0.6497</td>
+<td style="text-align: right;">0.6947</td>
+<td style="text-align: right;">0.4134</td>
+<td style="text-align: right;">0.5541</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="significacion-variables-logit" class="slide level2 future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Significación variables LOGIT</h1>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">variable</th>
+<th style="text-align: left;">Significación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">paisEspaña</td>
+<td style="text-align: left;">.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">estudios.L</td>
+<td style="text-align: left;">.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">estudios.C</td>
+<td style="text-align: left;">*</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>saludpercibidaMuy buena/buena</code></td>
+<td style="text-align: left;">.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">enfcancerosasSí</td>
+<td style="text-align: left;">.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">recepcionSí</td>
+<td style="text-align: left;">**</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">recomendacionSí</td>
+<td style="text-align: left;">.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">sintomasSí</td>
+<td style="text-align: left;">**</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">temorSí</td>
+<td style="text-align: left;">**</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;"><code>riesgoMuy alto/alto</code></td>
+<td style="text-align: left;">.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;"><code>riesgoNS/NC</code></td>
+<td style="text-align: left;">***</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="importancia-variables-nn" class="slide level2 reduccion future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Importancia variables NN</h1>
+<p><img src="index_files/vinn.png" alt="Importancia variables NN"></p>
+</section>
+<section id="importancia-variables-rf" class="slide level2 reduccion future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Importancia variables RF</h1>
+<p><img src="index_files/varImprf.png" alt="Importancia variables RF"></p>
+</section>
+<section id="importancia-variables-xgboost" class="slide level2 future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Importancia variables XGBoost</h1>
+<p><img src="index_files/vixgboost.jpg" alt="Importancia variables XGBoost"></p>
+</section>
+<section id="clases-desbalanceadas" class="slide level2 future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Clases desbalanceadas</h1>
+<ul>
+<li>Ponderar las clases</li>
+<li>Down-sampling</li>
+<li>Up-sampling</li>
+</ul>
+</section>
+<section id="curvas-roc" class="slide level2 future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Curvas ROC</h1>
+<p><img src="index_files/roc.png" alt="Curvas ROC"></p>
+</section>
+<section id="conclusiones" class="slide level2 white has-dark-background future" data-background="#005193" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Conclusiones</h1>
+</section>
+<section id="conclusiones-1" class="slide level2 future" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Conclusiones</h1>
+<ul>
+<li>Se presentarosn 5 modelos basados en el aprendizaje automático
+<ul>
+<li>Redes Neuronales</li>
+<li>K-nearest neighbours</li>
+<li>Naive Bayes</li>
+<li>Random Forest</li>
+<li>XGBoost</li>
+</ul></li>
+<li><p>Estos algoritmos superan al modelo de elección discreta Logit en términos de precisión y AUC</p></li>
+<li><p>Los modelos basados en el aprendizaje automático permiten la 
+computación en paralelo por lo que son rápidos a la hora de manejar gran
+ cantidad de datos.</p></li>
+</ul>
+</section>
+<section id="comparativa-de-modelos-de-clasificacion-no-parametricos-frente-modelos-de-eleccion-discreta-convencionales" class="slide level2 white has-dark-background future" data-background="#005193" style="top: 330px; display: none;" aria-hidden="true" hidden="">
+<h1>Comparativa de modelos de clasificación no paramétricos frente modelos de elección discreta convencionales</h1>
+<p>```</p>
+</section>
+    </div>
+  <div class="backgrounds"><div class="slide-background present" style="display: block;" data-loaded="true"></div><div class="slide-background slide level2 future" style="display: block;" data-loaded="true"></div><div class="slide-background slide level2 white future" style="background: rgb(0, 81, 147) none repeat scroll 0% 0%; display: block;" data-background-hash="#005193nullnullnullnullnullnullnullnull" data-loaded="true"></div><div class="slide-background slide level2 future" style="display: none;"></div><div class="slide-background slide level2 future" style="display: none;"></div><div class="slide-background slide level2 future" style="display: none;"></div><div class="slide-background slide level2 future" style="display: none;"></div><div class="slide-background slide level2 future" style="display: none;"></div><div class="slide-background slide level2 future" style="display: none;"></div><div class="slide-background slide level2 future" style="display: none;"></div><div class="slide-background slide level2 future" style="display: none;"></div><div class="slide-background slide level2 future" style="display: none;"></div><div class="slide-background slide level2 reduccion future" style="display: none;"></div><div class="slide-background slide level2 white future" style="background: rgb(0, 81, 147) none repeat scroll 0% 0%; display: none;" data-background-hash="#005193nullnullnullnullnullnullnullnull"></div><div class="slide-background slide level2 future" style="display: none;"></div><div class="slide-background slide level2 future" style="display: none;"></div><div class="slide-background slide level2 future" style="display: none;"></div><div class="slide-background slide level2 white future" style="background: rgb(0, 81, 147) none repeat scroll 0% 0%; display: none;" data-background-hash="#005193nullnullnullnullnullnullnullnull"></div><div class="slide-background slide level2 reduccion future" style="display: none;"></div><div class="slide-background slide level2 future" style="display: none;"></div><div class="slide-background slide level2 h1reduccion future" style="display: none;"></div><div class="slide-background slide level2 future" style="display: none;"></div><div class="slide-background slide level2 white future" style="background: rgb(0, 81, 147) none repeat scroll 0% 0%; display: none;" data-background-hash="#005193nullnullnullnullnullnullnullnull"></div><div class="slide-background slide level2 future" style="display: none;"></div><div class="slide-background slide level2 future" style="display: none;"></div><div class="slide-background slide level2 reduccion future" style="display: none;"></div><div class="slide-background slide level2 reduccion future" style="display: none;"></div><div class="slide-background slide level2 future" style="display: none;"></div><div class="slide-background slide level2 future" style="display: none;"></div><div class="slide-background slide level2 future" style="display: none;"></div><div class="slide-background slide level2 white future" style="background: rgb(0, 81, 147) none repeat scroll 0% 0%; display: none;" data-background-hash="#005193nullnullnullnullnullnullnullnull"></div><div class="slide-background slide level2 future" style="display: none;"></div><div class="slide-background slide level2 white future" style="background: rgb(0, 81, 147) none repeat scroll 0% 0%; display: none;" data-background-hash="#005193nullnullnullnullnullnullnullnull"></div></div><div class="progress" style="display: none;"><span></span></div><aside class="controls" style="display: block;"><button class="navigate-left" aria-label="previous slide"></button><button class="navigate-right enabled" aria-label="next slide"></button><button class="navigate-up" aria-label="above slide"></button><button class="navigate-down" aria-label="below slide"></button></aside><div class="slide-number" style="display: none;"></div><div class="speaker-notes" data-prevent-swipe=""></div><div class="pause-overlay"></div><div style="position: absolute; height: 1px; width: 1px; overflow: hidden; clip: rect(1px, 1px, 1px, 1px);" id="aria-status-div" aria-live="polite" aria-atomic="true">
+
+	
+		
+	
+		#JornadasAES
+	
+	
+	
+
+
+    Comparativa de modelos de clasificación no paramétricos frente modelos de elección discreta convencionales
+  Una aplicación con datos de percepción de factores de riesgo oncológicos
+
+    Miguel Ángel Negrín, Jaime Pinilla, Christian González, Francisco J. Vázquez
+    Departamento de Métodos Cuantitativos en Economía y Gestión. Universidad de Las Palmas de Gran Canaria
+    Barcelona, 7 septiembre 2017
+</div></div>
+
+  <script src="index_files/head.js"></script>
+  <script src="index_files/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display a presentation progress bar
+        progress: false,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: true,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'none', // none/fade/slide/convex/concave/zoom
+
+
+
+        // Optional reveal.js plugins
+        dependencies: [
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  
+
+</body></html>
