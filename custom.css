@@ -1,0 +1,232 @@
+/*********************************************
+ * GLOBAL STYLES
+ *********************************************/
+
+body {
+	font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, FreeSerif, serif;
+	font-size: 36px;
+	font-weight: 200;
+	letter-spacing: -0.02em;
+	color: black !important;
+
+	background: #F0F1EB;
+}
+
+::-moz-selection {
+  background: #26351C;
+  color: rgba(255,255,255, 0.8);
+}
+::-webkit-selection {
+  background: #26351C;
+  color: rgba(255,255,255, 0.8);
+}
+::selection {
+  background: #26351C;
+  color: rgba(255,255,255, 0.8);
+}
+
+/*********************************************
+ * TITLE STYLES
+ *********************************************/
+
+
+  .reveal h1.title {
+    	font-size: 115%;
+    	text-align: left;
+		color: rgb(0,81,147);
+		font: bold;
+
+  }
+  .reveal h1.subtitle {
+    	font-size: 75%;
+    	text-align: left;
+    	text-transform: none;
+		color: rgb(0,81,147);
+
+  }
+  .reveal h2.author {
+    	font-size: 60%;
+    	text-align: left;
+    	text-transform: capitalize;
+		color: rgb(105,105,105);
+		margin-top: 200px
+  }
+  .reveal h3.date {
+    	font-size: 40%;
+    	text-align: left;
+    	text-transform: none;
+		color: rgb(105,105,105);
+  }
+    .reveal h3.affiliation {
+    	font-size: 50%;
+    	text-align: left;
+    	text-transform: none;
+		color: rgb(105,105,105);
+  }
+
+
+.reveal #head_imag {
+    background: rgba(0, 0, 0, 0) url("images/head_back.jpg") repeat-x scroll 13px;
+}
+.reveal .clear {
+    clear: both;
+}  
+
+
+.reveal #head_hash {
+    background: rgba(0, 0, 0, 0) url("images/twitter.png") no-repeat scroll 3px center;
+    border: 1px solid #bcbbbb;
+    float: right;
+    font-size: 20px;
+    line-height: 40px;
+    margin: 90px 5px 0 0;
+    padding: 0 6px 0 50px;
+}
+
+
+.reveal .content_t {
+    margin: 0 auto;
+
+}
+
+.reveal #img_title{
+	margin: 0 0px;
+	float: left;
+	background: none;
+	width: 25%;
+	height: 25%;
+	box-shadow: none;
+}
+
+.reveal #marco_title{
+	background-color: rgb(223,223,223);
+	padding: 10px 0px 10px 20px;
+}
+
+
+
+/*********************************************
+ * LINKS
+ *********************************************/
+
+.reveal a:not(.image) {
+	color: #51483D;
+	text-decoration: none;
+  font-weight: bold;
+  line-height: 1.4em;
+	-webkit-transition: color .15s ease;
+	   -moz-transition: color .15s ease;
+	    -ms-transition: color .15s ease;
+	     -o-transition: color .15s ease;
+	        transition: color .15s ease;
+}
+	.reveal a:not(.image):hover {
+		text-shadow: none;
+		border: none;
+		border-radius: 2px;
+	}
+
+.reveal .roll span:after {
+	color: #fff;
+	background: #51483D;
+}
+
+.reveal a.link03:link, .reveal a.link03:visited {
+    color: #fff;
+}
+.reveal a:link, .reveal a:visited, .reveal a:hover {
+    text-decoration: none;
+}
+
+/*********************************************
+ * IMAGES
+ *********************************************/
+
+.reveal section img {
+	margin: 30px 0 0 0;
+	background: rgba(255,255,255,0.12);
+	border: 4px solid #eee;
+	
+	-webkit-box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+	   -moz-box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+	        box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+	
+	-webkit-transition: all .2s linear;
+	   -moz-transition: all .2s linear;
+	    -ms-transition: all .2s linear;
+	     -o-transition: all .2s linear;
+	        transition: all .2s linear;
+}
+
+	.reveal a:hover img {
+		background: rgba(255,255,255,0.2);
+		border-color: darkblue;
+		
+		-webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.55);
+		   -moz-box-shadow: 0 0 20px rgba(0, 0, 0, 0.55);
+		        box-shadow: 0 0 20px rgba(0, 0, 0, 0.55);
+	}
+
+
+/*********************************************
+ * NAVIGATION CONTROLS
+ *********************************************/
+
+.reveal .controls a {
+	color: black;
+}
+	.reveal .controls a.enabled {
+		color: #26351C;
+		opacity: 1;
+		text-shadow: 0px 0px 2px hsla(185, 45%, 70%, 0.3);
+	}
+
+
+.reveal section img {
+    background: rgba(255, 255, 255, 0.12) none repeat scroll 0 0;
+	border: none;
+    margin: 15px 0;
+}
+
+/*********************************************
+ * MISC
+ *********************************************/
+
+.reveal p {
+  line-height: 1.4em;
+  font-size: 1.15em;
+  color: #111;
+}
+
+.reveal li {
+  line-height: 1.25em;
+  font-size: 0.9em;
+  color: #111;
+}
+
+.reveal .reduccion {
+	font-size: 75%;
+}
+
+.reveal #analisis-descriptivo table {
+    width: 100%;
+}
+
+.reveal .h1reduccion h1 {
+    font-size: 95%;
+}
+
+.reveal .white h1 {
+    color: #FFFFFF;
+}
+
+.reveal p {
+	font-size: 90%
+}
+
+
+
+
+
+
+
